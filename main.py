@@ -93,10 +93,8 @@ def generate_training_data(model_names):
 data_directory='/Users/wiebe/Documents/VULCAN_runs/HATP11/' #Directory that contains the VULCAN runs, for example '/Users/wiebe/Documents/VULCAN_runs/defined_stars/'
 model_names=[]
 planet_name = 'HATP11' # Name of the planet, for example 'HD189733'
-Zvals = [1, 10, 30] # Values of the metallicity
-COvals = [0.3, 0.55, 0.70] # Values of the C/O ratio
-# Zvals = np.arange(1, 31, 1) # Values of the metallicity
-# COvals = np.arange(0.1, 1, 0.1) # Values of the C/O ratio
+Zvals = np.arange(1, 31, 1) # Values of the metallicity
+COvals = np.arange(0.1, 1, 0.1) # Values of the C/O ratio
 
 for i in range(len(COvals)):
     for j in range(len(Zvals)):

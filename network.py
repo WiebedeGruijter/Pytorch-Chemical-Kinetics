@@ -14,7 +14,7 @@ class Net(nn.Module):
         self.conv1 = nn.Conv1d(1, 10, kernel_size=(11))
         self.conv2 = nn.Conv1d(10, 20, kernel_size=(12), padding=5)
         self.flatten = nn.Flatten(start_dim=0)
-        self.linear3 = nn.Linear(13660, 13350)
+        self.linear3 = nn.Linear(80400, 13350)
         
     def forward(self, x):
         # input 1x2744, output 10x2734

@@ -62,6 +62,8 @@ def generate_training_data(model_names):
     training_data = torch.Tensor(training_data)
     sflux = torch.from_numpy(data['variable']['sflux'][-1,:])
     training_data = torch.cat((training_data, sflux))
+    y_ini = torch.from_numpy(data['variable']['y_ini'].flatten())
+    training_data = torch.cat((training_data, y_ini))
     C_H = torch.Tensor([data['variable']['atom_ini']['C']/data['variable']['atom_ini']['H']])
     N_H = torch.Tensor([data['variable']['atom_ini']['N']/data['variable']['atom_ini']['H']])
     S_H = torch.Tensor([data['variable']['atom_ini']['S']/data['variable']['atom_ini']['H']])
@@ -93,15 +95,17 @@ def generate_training_data(model_names):
 data_directory='/Users/wiebe/Documents/VULCAN_runs/HATP11/' #Directory that contains the VULCAN runs, for example '/Users/wiebe/Documents/VULCAN_runs/defined_stars/'
 model_names=[]
 planet_name = 'HATP11' # Name of the planet, for example 'HD189733'
-Zvals = np.arange(1, 31, 1) # Values of the metallicity
-COvals = np.arange(0.1, 1, 0.1) # Values of the C/O ratio
+Zvals = [1, 10, 30]
+COvals = [0.30, 0.55, 0.70]
+# Zvals = np.arange(1, 31, 1) # Values of the metallicity
+# COvals = np.arange(0.1, 1, 0.1) # Values of the C/O ratio
 
 for i in range(len(COvals)):
     for j in range(len(Zvals)):
       model_names.append(planet_name+'_Z'+str(Zvals[j])+'_CO'+format(COvals[i], '.2f')+'_T0_gp_K9_Fs')
 
 DEVICE = torch.device('cpu') # Processing unit to use, choose from 'CPU', 'mps' (for Apple GPU), 'cuda' (for NVIDIA GPU)
-
+print('Device: '+str(DEVICE))
 learning_rate = 0.001
 network = Net().to(DEVICE)  # We move the network to the GPU
 n_epochs = 10
